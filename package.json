@@ -4,6 +4,10 @@
   "description": "This repo forms the backend half of the PawPrint app begin completed as part of a tech test for Verse.co.uk - README.md to be completed.",
   "main": "index.js",
   "scripts": {
+    "setup-dbs": "psql -f ./db/setup.sql",
+    "migrate-make": "knex migrate:make",
+    "migrate-latest": "knex migrate:latest",
+    "migrate-rollback": "knex migrate:rollback",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
