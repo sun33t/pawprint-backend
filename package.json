@@ -4,6 +4,8 @@
   "description": "This repo forms the backend half of the PawPrint app begin completed as part of a tech test for Verse.co.uk - README.md to be completed.",
   "main": "index.js",
   "scripts": {
+    "start": "node listen.js",
+    "start-nd": "nodemon listen.js",
     "setup-dbs": "psql -f ./db/setup.sql",
     "seed": "knex seed:run",
     "migrate-make": "knex migrate:make",
