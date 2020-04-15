@@ -1,4 +1,4 @@
-const { fetchQuestions } = require('../models/questions-models')
+const { fetchQuestions, addQuestion } = require('../models/questions-models')
 
 const sendQuestions = (req, res, next) => {
   fetchQuestions().then((questions) => {
@@ -6,4 +6,11 @@ const sendQuestions = (req, res, next) => {
   })
 }
 
-module.exports = { sendQuestions }
+const postQuestion = (req, res, nest) => {
+  const questionsToAdd = req.body
+  addQuestion(questionsToAdd).then((question) => {
+    res.status(201).send(question)
+  })
+}
+
+module.exports = { sendQuestions, postQuestion }

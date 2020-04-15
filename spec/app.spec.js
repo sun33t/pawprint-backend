@@ -51,5 +51,22 @@ describe('/api', () => {
           ])
         })
     })
+
+    it('POST responds with a status 201 and the newly posted question', () => {
+      return request(app)
+        .post('/api/questions')
+        .send({
+          category: 'health',
+          question_text: 'How often do you exercise?',
+          option_1: 'Daily',
+          option_2: '1 or 2 times',
+          option_3: '3+ times per week',
+          option_4: 'Not at all',
+        })
+        .expect(201)
+        .then(({ body }) => {
+          expect(body.question.category).to.equal('health')
+        })
+    })
   })
 })
