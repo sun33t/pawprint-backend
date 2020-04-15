@@ -1,0 +1,32 @@
+{
+  "name": "pawprint-backend",
+  "version": "1.0.0",
+  "description": "This repo forms the backend half of the PawPrint app begin completed as part of a tech test for Verse.co.uk - README.md to be completed.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sun33t/pawprint-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sun33t/pawprint-backend/issues"
+  },
+  "homepage": "https://github.com/sun33t/pawprint-backend#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "knex": "^0.20.14",
+    "nodemon": "^2.0.3",
+    "pg": "^7.18.2"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^7.1.1",
+    "supertest": "^4.0.2"
+  }
+}
