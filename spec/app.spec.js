@@ -13,10 +13,21 @@ describe('/api', () => {
     return request(app)
       .get('/api')
       .expect(200)
-      .then((response) => {
-        expect(response.body).to.eql({
-          msg: 'endpoints json would be served here',
-        })
+      .then(({ body }) => {
+        expect(body.msg).to.equal('endpoints json would be served here')
       })
+  })
+
+  it('INVALID METHOD requests respond with a status 405', () => {
+    const invalidMethods = ['patch', 'put', 'delete']
+    const methodPromises = invalidMethods.map((method) => {
+      return request(app)
+        [method]('/api')
+        .expect(405)
+        .then(({ body }) => {
+          expect(body.msg).to.equal('Method not allowed')
+        })
+    })
+    return Promise.all(methodPromises)
   })
 })
