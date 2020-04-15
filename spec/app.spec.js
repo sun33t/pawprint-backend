@@ -4,7 +4,7 @@ const request = require('supertest')
 const { expect } = require('chai')
 const connection = require('../db/connection')
 
-/* TESTS FOR /API ENDPOINT - Placeholder route */
+/* TESTS FOR /API ENDPOINT - Placeholder route for serving endpoints json */
 describe('/api', () => {
   beforeEach(() => connection.seed.run())
   after(() => connection.destroy())
@@ -29,5 +29,27 @@ describe('/api', () => {
         })
     })
     return Promise.all(methodPromises)
+  })
+
+  /* TESTS FOR /API/QUESTIONS ENDPOINT */
+
+  describe('/api/questions', () => {
+    it('GET responds with an array of question objects', () => {
+      return request(app)
+        .get('/api/questions')
+        .expect(200)
+        .then(({ body }) => {
+          expect(body).to.be.an('object')
+          expect(body.questions[0]).to.contain.keys([
+            'question_id',
+            'category',
+            'question_text',
+            'option_1',
+            'option_2',
+            'option_3',
+            'option_4',
+          ])
+        })
+    })
   })
 })
