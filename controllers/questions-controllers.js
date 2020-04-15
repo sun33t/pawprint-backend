@@ -1,7 +1,8 @@
 const { fetchQuestions, addQuestion } = require('../models/questions-models')
 
 const sendQuestions = (req, res, next) => {
-  fetchQuestions().then((questions) => {
+  const { category } = req.query
+  fetchQuestions(category).then((questions) => {
     res.status(200).send(questions)
   })
 }

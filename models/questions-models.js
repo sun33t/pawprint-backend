@@ -1,9 +1,12 @@
 const connection = require('../db/connection')
 
-const fetchQuestions = () => {
+const fetchQuestions = (category) => {
   return connection('questions')
     .select('*')
     .from('questions')
+    .modify((query) => {
+      if (category) query.where('questions.category', category)
+    })
     .then((questions) => {
       return { questions }
     })

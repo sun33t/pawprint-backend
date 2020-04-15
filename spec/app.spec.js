@@ -52,6 +52,17 @@ describe('/api', () => {
         })
     })
 
+    it('GET responds with an array of question objects filtered by the provided category', () => {
+      return request(app)
+        .get('/api/questions?category=travel')
+        .expect(200)
+        .then(({ body }) => {
+          body.questions.map((question) => {
+            expect(question.category).to.equal('travel')
+          })
+        })
+    })
+
     it('POST responds with a status 201 and the newly posted question', () => {
       return request(app)
         .post('/api/questions')
