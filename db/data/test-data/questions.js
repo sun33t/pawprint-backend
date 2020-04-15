@@ -41,4 +41,20 @@ module.exports = [
     option_3: '3+ times per week',
     option_4: 'Not at all',
   },
+  {
+    category: 'travel',
+    question_text: 'How often do you go on holiday abroad?',
+    option_1: 'Once a year',
+    option_2: 'Twice a year',
+    option_3: 'Three times or more per year',
+    option_4: 'Not at all',
+  },
+  {
+    category: 'home',
+    question_text: 'How many people live in your household?',
+    option_1: 'Just me',
+    option_2: "There's two of us",
+    option_3: 'Three people',
+    option_4: 'More than three!',
+  },
 ]
