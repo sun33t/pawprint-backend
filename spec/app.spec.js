@@ -79,5 +79,17 @@ describe('/api', () => {
           expect(body.question.category).to.equal('health')
         })
     })
+    it('INVALID METHOD requests respond with a status 405', () => {
+      const invalidMethods = ['patch', 'put', 'delete']
+      const methodPromises = invalidMethods.map((method) => {
+        return request(app)
+          [method]('/api/questions')
+          .expect(405)
+          .then(({ body }) => {
+            expect(body.msg).to.equal('Method not allowed')
+          })
+      })
+      return Promise.all(methodPromises)
+    })
   })
 })
