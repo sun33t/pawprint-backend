@@ -4,7 +4,9 @@ This repo forms the backend half of the PawPrint app begin completed as part of 
 
 ## Getting Started
 
-In order to get a copy of this project up and running on your local machine, please follow the instructions in the steps below:
+Quick Start: visit [this link](https://pawprint-backend-suneet.herokuapp.com/api/) to access the deployed API and to see the list of available endpoints and example responses.
+
+Alternatively: In order to get a copy of this project up and running on your local machine, please follow the instructions in the steps below:
 
 ### Prerequisites
 
@@ -130,7 +132,7 @@ npm test
 
 ## Deployment
 
-A working implementation of the API is hosted via Heroku and can be found [here](...)
+A working implementation of the API is hosted via Heroku and can be found [here](https://pawprint-backend-suneet.herokuapp.com/api/)
 
 ## Author
 
