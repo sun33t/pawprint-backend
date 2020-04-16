@@ -107,6 +107,26 @@ describe('/api', () => {
         })
     })
 
+    it('POST responds with a status 400 when attempting to add an existing question', () => {
+      return request(app)
+        .post('/api/questions')
+        .send({
+          category: 'diet',
+          question_text: 'How often do you eat meat and dairy?',
+          option_1: 'Daily',
+          option_2: '1 or 2 times',
+          option_3: '3+ times per week',
+          option_4: 'Not at all',
+        })
+        .expect(400)
+        .then(({ body }) => {
+          console.log(body.msg)
+          expect(body.msg).to.equal(
+            'duplicate key value violates unique constraint "questions_question_text_unique"'
+          )
+        })
+    })
+
     it('INVALID METHOD requests respond with a status 405', () => {
       const invalidMethods = ['patch', 'put', 'delete']
       const methodPromises = invalidMethods.map((method) => {
@@ -118,6 +138,19 @@ describe('/api', () => {
           })
       })
       return Promise.all(methodPromises)
+    })
+
+    it('POST responds with a status 400 when attempting to add an empty question', () => {
+      return request(app)
+        .post('/api/questions')
+        .send({})
+        .expect(400)
+        .then(({ body }) => {
+          console.log(body.msg)
+          expect(body.msg).to.equal(
+            'null value in column "category" violates not-null constraint'
+          )
+        })
     })
   })
 })

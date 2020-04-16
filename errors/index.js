@@ -7,7 +7,7 @@ const routeNotFound = (req, res, next) => {
 }
 
 const psqlErrorHandler = (err, req, res, next) => {
-  const psqlErrors = { '42703': 400 }
+  const psqlErrors = { '42703': 400, '23505': 400, '23502': 400 }
   err.code
     ? res
         .status(psqlErrors[err.code])
