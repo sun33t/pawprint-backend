@@ -4,17 +4,18 @@ const request = require('supertest')
 const { expect } = require('chai')
 const connection = require('../db/connection')
 
-/* TESTS FOR /API ENDPOINT - Placeholder route for serving endpoints json */
+/* TESTS FOR /API ENDPOINT */
 describe('/api', () => {
   beforeEach(() => connection.seed.run())
   after(() => connection.destroy())
 
-  it('GET responds with a placeholder message', () => {
+  it('GET responds with a json object indicating the available endpoints on this API', () => {
     return request(app)
       .get('/api')
       .expect(200)
       .then(({ body }) => {
-        expect(body.msg).to.equal('endpoints json would be served here')
+        expect(body).to.be.an('object')
+        expect(body).to.contain.keys('endpoints')
       })
   })
 

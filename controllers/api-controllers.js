@@ -1,7 +1,7 @@
-const { fetchEndpoints } = require('../models/api-models')
+const endpoints = require('../endpoints.json')
 
 const sendEndpoints = (req, res, next) => {
-  res.status(200).send({ msg: 'endpoints json would be served here' })
+  res.status(200).send({ endpoints })
 }
 
 module.exports = { sendEndpoints }

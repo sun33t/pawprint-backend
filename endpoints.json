@@ -1,0 +1,52 @@
+{
+  "GET /api": {
+    "description": "serves up a json representation of the available endpoints of the api"
+  },
+  "GET /api/questions": {
+    "description": "serves an array of all the questions in the database",
+    "queries": {
+      "category": "string (e.g. 'diet)"
+    },
+    "exampleResponse": {
+      "questions": [
+        {
+          "category": "diet",
+          "question_text": "How often do you eat meat and dairy?",
+          "option_1": "Daily",
+          "option_2": "1 or 2 times",
+          "option_3": "3+ times per week",
+          "option_4": "Not at all"
+        },
+        {
+          "category": "diet",
+          "question_text": "How big are your portion sizes?",
+          "option_1": "Smaller than average",
+          "option_2": "Average",
+          "option_3": "Larger than average",
+          "option_4": "I'm not sure"
+        }
+      ]
+    }
+  },
+  "POST /api/questions": {
+    "description": "Responds with the posted question",
+    "body": {
+      "category": "diet",
+      "question_text": "How often do you eat meat and dairy?",
+      "option_1": "Daily",
+      "option_2": "1 or 2 times",
+      "option_3": "3+ times per week",
+      "option_4": "Not at all"
+    },
+    "exampleResponse": {
+      "question": {
+        "category": "diet",
+        "question_text": "How often do you eat meat and dairy?",
+        "option_1": "Daily",
+        "option_2": "1 or 2 times",
+        "option_3": "3+ times per week",
+        "option_4": "Not at all"
+      }
+    }
+  }
+}
