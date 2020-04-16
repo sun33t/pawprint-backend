@@ -71,7 +71,6 @@ describe('/api', () => {
           })
         })
     })
-
     it('POST responds with a status 201 and the newly posted question', () => {
       return request(app)
         .post('/api/questions')
@@ -120,37 +119,34 @@ describe('/api', () => {
         })
         .expect(400)
         .then(({ body }) => {
-          console.log(body.msg)
           expect(body.msg).to.equal(
             'duplicate key value violates unique constraint "questions_question_text_unique"'
           )
         })
     })
-
-    it('INVALID METHOD requests respond with a status 405', () => {
-      const invalidMethods = ['patch', 'put', 'delete']
-      const methodPromises = invalidMethods.map((method) => {
-        return request(app)
-          [method]('/api/questions')
-          .expect(405)
-          .then(({ body }) => {
-            expect(body.msg).to.equal('Method not allowed')
-          })
-      })
-      return Promise.all(methodPromises)
-    })
-
     it('POST responds with a status 400 when attempting to add an empty question', () => {
       return request(app)
         .post('/api/questions')
         .send({})
         .expect(400)
         .then(({ body }) => {
-          console.log(body.msg)
           expect(body.msg).to.equal(
             'null value in column "category" violates not-null constraint'
           )
         })
     })
+  })
+
+  it('INVALID METHOD requests respond with a status 405', () => {
+    const invalidMethods = ['patch', 'put', 'delete']
+    const methodPromises = invalidMethods.map((method) => {
+      return request(app)
+        [method]('/api/questions')
+        .expect(405)
+        .then(({ body }) => {
+          expect(body.msg).to.equal('Method not allowed')
+        })
+    })
+    return Promise.all(methodPromises)
   })
 })

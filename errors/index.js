@@ -14,5 +14,13 @@ const psqlErrorHandler = (err, req, res, next) => {
         .send({ msg: err.message.split(' - ')[1] || 'bad request' })
     : next(err)
 }
+const serverErrorHandler = (err, req, res, next) => {
+  res.status(500).send({ msg: 'Internal Server Error' })
+}
 
-module.exports = { methodNotAllowed, routeNotFound, psqlErrorHandler }
+module.exports = {
+  methodNotAllowed,
+  routeNotFound,
+  psqlErrorHandler,
+  serverErrorHandler,
+}
