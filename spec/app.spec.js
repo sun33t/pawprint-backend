@@ -31,6 +31,15 @@ describe('/api', () => {
     return Promise.all(methodPromises)
   })
 
+  it('responds with a status 404 when provided with a bad /api* url', () => {
+    return request(app)
+      .get('/api/not-a-route')
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).to.equal('Route not found')
+      })
+  })
+
   /* TESTS FOR /API/QUESTIONS ENDPOINT */
 
   describe('/api/questions', () => {
