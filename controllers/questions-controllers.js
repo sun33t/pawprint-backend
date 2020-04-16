@@ -7,11 +7,13 @@ const sendQuestions = (req, res, next) => {
   })
 }
 
-const postQuestion = (req, res, nest) => {
+const postQuestion = (req, res, next) => {
   const questionsToAdd = req.body
-  addQuestion(questionsToAdd).then((question) => {
-    res.status(201).send(question)
-  })
+  addQuestion(questionsToAdd)
+    .then((question) => {
+      res.status(201).send(question)
+    })
+    .catch(next)
 }
 
 module.exports = { sendQuestions, postQuestion }

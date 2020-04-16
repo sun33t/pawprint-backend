@@ -6,4 +6,13 @@ const routeNotFound = (req, res, next) => {
   res.status(404).send({ msg: 'Route not found' })
 }
 
-module.exports = { methodNotAllowed, routeNotFound }
+const psqlErrorHandler = (err, req, res, next) => {
+  const psqlErrors = { '42703': 400 }
+  err.code
+    ? res
+        .status(psqlErrors[err.code])
+        .send({ msg: err.message.split(' - ')[1] || 'bad request' })
+    : next(err)
+}
+
+module.exports = { methodNotAllowed, routeNotFound, psqlErrorHandler }

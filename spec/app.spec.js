@@ -88,6 +88,25 @@ describe('/api', () => {
           expect(body.question.category).to.equal('health')
         })
     })
+    it('POST responds with a status 400 when attempting to add an invalid question', () => {
+      return request(app)
+        .post('/api/questions')
+        .send({
+          categor: 'health',
+          question_text: 'How often do you exercise?',
+          option_1: 'Daily',
+          option_2: '1 or 2 times',
+          option_3: '3+ times per week',
+          option_4: 'Not at all',
+        })
+        .expect(400)
+        .then(({ body }) => {
+          expect(body.msg).to.equal(
+            'column "categor" of relation "questions" does not exist'
+          )
+        })
+    })
+
     it('INVALID METHOD requests respond with a status 405', () => {
       const invalidMethods = ['patch', 'put', 'delete']
       const methodPromises = invalidMethods.map((method) => {
