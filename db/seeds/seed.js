@@ -5,6 +5,6 @@ exports.seed = function (knex) {
     .rollback()
     .then(() => knex.migrate.latest())
     .then(() => {
-      return knex('questions').insert(questionData).returning('*')
+      return knex('questions').insert(questionData)
     })
 }
