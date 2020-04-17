@@ -8,7 +8,8 @@ exports.routeNotFound = (req, res, next) => {
 
 exports.psqlErrorHandler = (err, req, res, next) => {
   const psqlErrors = { '42703': 400, '23505': 400, '23502': 400 }
-  err.code
+
+  psqlErrors[err.code]
     ? res
         .status(psqlErrors[err.code])
         .send({ msg: err.message.split(' - ')[1] || 'bad request' })
