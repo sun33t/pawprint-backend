@@ -1,5 +1,4 @@
 exports.up = function (knex) {
-  // console.log('creating questions table')
   return knex.schema.createTable('questions', (questionsTable) => {
     questionsTable.increments('question_id').primary().notNullable()
     questionsTable.string('category').notNullable()
@@ -12,6 +11,5 @@ exports.up = function (knex) {
 }
 
 exports.down = function (knex) {
-  // console.log('Removing questions table')
   return knex.schema.dropTable('questions')
 }
