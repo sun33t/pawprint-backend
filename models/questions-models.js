@@ -17,7 +17,7 @@ exports.addQuestion = (newQuestion) => {
     .insert(newQuestion)
     .returning('*')
     .then((response) => {
-      const question = response[0]
+      const [question] = response
       return { question }
     })
 }
