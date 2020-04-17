@@ -1,12 +1,12 @@
 # PawPrint - Backend
 
-This repo forms the backend half of the PawPrint app begin completed as part of a tech test for Verse. It's an example of a RESTful API that is designed to serve question data to be consumed by the corresponding front-end for a survey application (PawPrint).
+This is an example of a RESTful API that is designed to serve question data to be consumed by its corresponding front-end (GitHub repo [here](https://github.com/sun33t/pawprint-frontend)).
 
 ## Getting Started
 
 Quick Start: visit [this link](https://pawprint-backend-suneet.herokuapp.com/api/) to access the deployed API and to see the list of available endpoints and example responses.
 
-Alternatively: In order to get a copy of this project up and running on your local machine, please follow the instructions in the steps below:
+Alternatively, you can run a local copy of this project by following the instructions below:
 
 ### Prerequisites
 
@@ -132,7 +132,7 @@ npm test
 
 ## Deployment
 
-A working implementation of the API is hosted via Heroku and can be found [here](https://pawprint-backend-suneet.herokuapp.com/api/)
+A working implementation of this API hosted on Heroku can be found [here](https://pawprint-backend-suneet.herokuapp.com/api/)
 
 ## Author
 
