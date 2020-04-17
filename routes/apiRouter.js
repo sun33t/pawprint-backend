@@ -7,4 +7,4 @@ apiRouter.route('/').get(sendEndpoints).all(methodNotAllowed)
 
 apiRouter.use('/questions', questionsRouter)
 
-module.exports = { apiRouter }
+module.exports = apiRouter

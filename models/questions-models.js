@@ -1,6 +1,6 @@
 const connection = require('../db/connection')
 
-const fetchQuestions = (category) => {
+exports.fetchQuestions = (category) => {
   return connection('questions')
     .select('*')
     .from('questions')
@@ -12,7 +12,7 @@ const fetchQuestions = (category) => {
     })
 }
 
-const addQuestion = (newQuestion) => {
+exports.addQuestion = (newQuestion) => {
   return connection('questions')
     .insert(newQuestion)
     .returning('*')
@@ -21,5 +21,3 @@ const addQuestion = (newQuestion) => {
       return { question }
     })
 }
-
-module.exports = { fetchQuestions, addQuestion }
