@@ -1,7 +1,14 @@
 const categoriesRouter = require('express').Router()
 const { methodNotAllowed } = require('../errors/index')
-const { sendCategories } = require('../controllers/categories-controllers')
+const {
+  sendCategories,
+  postCategory,
+} = require('../controllers/categories-controllers')
 
-categoriesRouter.route('/').get(sendCategories).all(methodNotAllowed)
+categoriesRouter
+  .route('/')
+  .get(sendCategories)
+  .post(postCategory)
+  .all(methodNotAllowed)
 
 module.exports = { categoriesRouter }

@@ -179,6 +179,19 @@ describe('/api', () => {
   /* TESTS FOR /API/CATEGORIES ENDPOINT */
 
   describe.only('/categories', () => {
+    it('INVALID METHOD requests respond with a status 405', () => {
+      const invalidMethods = ['patch', 'put', 'delete']
+      const methodPromises = invalidMethods.map((method) => {
+        return request(app)
+          [method]('/api/categories')
+          .expect(405)
+          .then(({ body }) => {
+            expect(body.msg).to.equal('Method not allowed')
+          })
+      })
+      return Promise.all(methodPromises)
+    })
+
     it('GET responds with status 200 and an array of category objects', () => {
       return request(app)
         .get('/api/categories')
@@ -192,17 +205,15 @@ describe('/api', () => {
         })
     })
 
-    it('INVALID METHOD requests respond with a status 405', () => {
-      const invalidMethods = ['patch', 'put', 'delete', 'post']
-      const methodPromises = invalidMethods.map((method) => {
-        return request(app)
-          [method]('/api/categories')
-          .expect(405)
-          .then(({ body }) => {
-            expect(body.msg).to.equal('Method not allowed')
-          })
-      })
-      return Promise.all(methodPromises)
+    it('POST responds with status 201 and the newly posted category', () => {
+      return request(app)
+        .post('/api/categories')
+        .send({ category_name: 'hobbies', category_title: 'Hobbies' })
+        .expect(201)
+        .then(({ body }) => {
+          expect(body.category.category_name).to.equal('hobbies')
+          expect(body.category.category_title).to.equal('Hobbies')
+        })
     })
   })
 })

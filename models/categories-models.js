@@ -8,3 +8,13 @@ exports.fetchCategories = () => {
       return { categories }
     })
 }
+
+exports.addCategory = (newCategory) => {
+  return connection('categories')
+    .insert(newCategory)
+    .returning('*')
+    .then((response) => {
+      const [category] = response
+      return { category }
+    })
+}
