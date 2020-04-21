@@ -5,7 +5,7 @@
   "GET /api/questions": {
     "description": "serves an array of all the questions in the database",
     "queries": {
-      "category": "string (e.g. 'diet)"
+      "category": "string (e.g. 'diet')"
     },
     "exampleResponse": {
       "questions": [
@@ -47,6 +47,37 @@
         "option_3": "3+ times per week",
         "option_4": "Not at all"
       }
+    }
+  },
+  "DELETE /api/questions": {
+    "description": "Responds with status 204",
+    "queries": {
+      "question_id": "string (e.g. '1')"
+    }
+  },
+  "GET /api/categories": {
+    "description": "serves an array of all the categories in the database",
+    "queries": {
+      "category": "string (e.g. 'diet')"
+    }
+  },
+  "POST /api/categories": {
+    "description": "Responds with the posted category",
+    "body": {
+      "category_name": "hobbies",
+      "category_title": "Hobbies"
+    },
+    "exampleResponse": {
+      "category": {
+        "category_name": "hobbies",
+        "category_title": "Hobbies"
+      }
+    }
+  },
+  "DELETE /api/categories": {
+    "description": "Responds with status 204",
+    "queries": {
+      "category": "string (e.g. 'hobbies')"
     }
   }
 }
