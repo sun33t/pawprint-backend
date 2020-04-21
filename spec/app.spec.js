@@ -76,8 +76,8 @@ describe('/api', () => {
       return request(app)
         .post('/api/questions')
         .send({
-          category: 'health',
-          question_text: 'How often do you exercise?',
+          category: 'diet',
+          question_text: 'Is this a test diet question?',
           option_1: 'Daily',
           option_2: '1 or 2 times',
           option_3: '3+ times per week',
@@ -85,7 +85,25 @@ describe('/api', () => {
         })
         .expect(201)
         .then(({ body }) => {
-          expect(body.question.category).to.equal('health')
+          expect(body.question.category).to.equal('diet')
+        })
+    })
+    it("POST responds with a status 400 when attempting to add a category that doesn't exist", () => {
+      return request(app)
+        .post('/api/questions')
+        .send({
+          category: 'health',
+          question_text: 'How often do you exercise?',
+          option_1: 'Daily',
+          option_2: '1 or 2 times',
+          option_3: '3+ times per week',
+          option_4: 'Not at all',
+        })
+        .expect(400)
+        .then(({ body }) => {
+          expect(body.msg).to.equal(
+            'insert or update on table "questions" violates foreign key constraint "questions_category_foreign"'
+          )
         })
     })
     it('POST responds with a status 400 when attempting to add an invalid question', () => {
@@ -149,5 +167,22 @@ describe('/api', () => {
         })
     })
     return Promise.all(methodPromises)
+  })
+
+  /* TESTS FOR /API/CATEGORIES ENDPOINT */
+
+  describe('/categories', () => {
+    it('INVALID METHOD requests respond with a status 405', () => {
+      const invalidMethods = ['patch', 'put', 'delete', 'post']
+      const methodPromises = invalidMethods.map((method) => {
+        return request(app)
+          [method]('/api/categories')
+          .expect(405)
+          .then(({ body }) => {
+            expect(body.msg).to.equal('Method not allowed')
+          })
+      })
+      return Promise.all(methodPromises)
+    })
   })
 })

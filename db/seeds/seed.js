@@ -5,13 +5,9 @@ exports.seed = function (knex) {
     .rollback()
     .then(() => knex.migrate.latest())
     .then(() => {
-      return knex('categories').insert(categoryData).returning('*')
+      return knex('categories').insert(categoryData)
     })
-    .then((data) => {
-      console.log(data)
-      return knex('questions').insert(questionData).returning('*')
-    })
-    .then((data) => {
-      console.log(data)
+    .then(() => {
+      return knex('questions').insert(questionData)
     })
 }
