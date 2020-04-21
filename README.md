@@ -122,6 +122,23 @@ Once you have the server up and running, the following endpoints will be availab
   - accepts an object in the form of `{category, question_text, option_1, option_2, option_3, option_4}`
   - responds with the newly added question
 
+- DELETE `api/questions`:
+
+  - accpets a query of `question_id` and responds with a status 204.
+
+- GET `api/categories`:
+
+  - responds with an array of category objects
+
+-POST `api/categories`
+
+- accepts an object in the form of `{category_name, category_title}`
+- responds with the newly added category
+
+- DELETE `api/categories`
+
+  - accepts a query of `category` and responds with a status 204
+
 ## Running the tests
 
 In order to run the included tests, or after creating your own testing criteria, issue the following command to the terminal to execute the tests:
