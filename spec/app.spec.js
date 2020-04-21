@@ -162,6 +162,21 @@ describe('/api', () => {
         })
     })
   })
+  //it('DELETE responds with a status 204 when deleting an existing question', () => {
+
+  //});
+
+  /*
+  it('DELETE responds with a status 204 when deleting an existing category', () => {
+    return request(app).delete('/api/categories?category=diet').expect(204)
+  })
+  it("DELETE responds with a status 404 when deleting a category that doesn't exist", () => {
+    return request(app)
+      .delete('/api/categories?category=hobbies')
+      .expect(404)
+      .then(({ body }) => {})
+  })
+*/
 
   it('INVALID METHOD requests respond with a status 405', () => {
     const invalidMethods = ['patch', 'put', 'delete']
@@ -257,14 +272,20 @@ describe('/api', () => {
           )
         })
     })
+
     it('DELETE responds with a status 204 when deleting an existing category', () => {
       return request(app).delete('/api/categories?category=diet').expect(204)
     })
-    it("DELETE responds with a status 404 when deleting a category that doesn't exist", () => {
+    it.only("DELETE responds with a status 404 when deleting a category that doesn't exist", () => {
       return request(app)
         .delete('/api/categories?category=hobbies')
         .expect(404)
-        .then(({ body }) => {})
+        .then(({ body }) => {
+          console.log(body)
+          expect(body.msg).to.equal(
+            'category with category_name: hobbies not found'
+          )
+        })
     })
   })
 })
