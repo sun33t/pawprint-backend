@@ -8,7 +8,9 @@ exports.sendCategories = (req, res, next) => {
 
 exports.postCategory = (req, res, next) => {
   const categoryToAdd = req.body
-  addCategory(categoryToAdd).then((category) => {
-    res.status(201).send(category)
-  })
+  addCategory(categoryToAdd)
+    .then((category) => {
+      res.status(201).send(category)
+    })
+    .catch(next)
 }

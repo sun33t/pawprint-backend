@@ -215,5 +215,20 @@ describe('/api', () => {
           expect(body.category.category_title).to.equal('Hobbies')
         })
     })
+
+    it('POST responds with a status 400 when attempting to add an invalid category', () => {
+      return request(app)
+        .post('/api/categories')
+        .send({
+          name: 'hobbies',
+          category_title: 'Hobbies',
+        })
+        .expect(400)
+        .then(({ body }) => {
+          expect(body.msg).to.equal(
+            'column "name" of relation "categories" does not exist'
+          )
+        })
+    })
   })
 })
