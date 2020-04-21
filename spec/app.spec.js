@@ -230,5 +230,20 @@ describe('/api', () => {
           )
         })
     })
+
+    it('POST responds with a status 400 when attempting to add an existing category', () => {
+      return request(app)
+        .post('/api/categories')
+        .send({
+          category_name: 'diet',
+          category_title: 'Diet',
+        })
+        .expect(400)
+        .then(({ body }) => {
+          expect(body.msg).to.equal(
+            'duplicate key value violates unique constraint "categories_pkey"'
+          )
+        })
+    })
   })
 })
