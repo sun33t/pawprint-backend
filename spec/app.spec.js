@@ -64,11 +64,11 @@ describe('/api', () => {
 
     it('GET responds with an array of question objects filtered by the provided category', () => {
       return request(app)
-        .get('/api/questions?category=travel')
+        .get('/api/questions?category=diet')
         .expect(200)
         .then(({ body }) => {
           body.questions.map((question) => {
-            expect(question.category).to.equal('travel')
+            expect(question.category).to.equal('diet')
           })
         })
     })
