@@ -205,7 +205,7 @@ describe('/api', () => {
       return Promise.all(methodPromises)
     })
 
-    it('GET responds with status 200 and an array of category objects', () => {
+    it.only('GET responds with status 200 and an array of category objects', () => {
       return request(app)
         .get('/api/categories')
         .expect(200)
@@ -214,6 +214,7 @@ describe('/api', () => {
           expect(body.categories[0]).to.contain.keys([
             'category_name',
             'category_title',
+            'question_count',
           ])
         })
     })

@@ -2,8 +2,11 @@ const connection = require('../db/connection')
 
 exports.fetchCategories = () => {
   return connection('categories')
-    .select('*')
+    .select('categories.*')
+    .count({ question_count: 'questions.category' })
     .from('categories')
+    .leftJoin('questions', 'questions.category', 'categories.category_name')
+    .groupBy('categories.category_name')
     .then((categories) => {
       return { categories }
     })
