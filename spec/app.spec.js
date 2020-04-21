@@ -86,6 +86,13 @@ describe('/api', () => {
         .expect(201)
         .then(({ body }) => {
           expect(body.question.category).to.equal('diet')
+          expect(body.question.question_text).to.equal(
+            'Is this a test diet question?'
+          )
+          expect(body.question.option_1).to.equal('Daily')
+          expect(body.question.option_2).to.equal('1 or 2 times')
+          expect(body.question.option_3).to.equal('3+ times per week')
+          expect(body.question.option_4).to.equal('Not at all')
         })
     })
     it("POST responds with a status 400 when attempting to add a category that doesn't exist", () => {
@@ -171,18 +178,18 @@ describe('/api', () => {
 
   /* TESTS FOR /API/CATEGORIES ENDPOINT */
 
-//   describe('/categories', () => {
-//     it('INVALID METHOD requests respond with a status 405', () => {
-//       const invalidMethods = ['patch', 'put', 'delete', 'post']
-//       const methodPromises = invalidMethods.map((method) => {
-//         return request(app)
-//           [method]('/api/categories')
-//           .expect(405)
-//           .then(({ body }) => {
-//             expect(body.msg).to.equal('Method not allowed')
-//           })
-//       })
-//       return Promise.all(methodPromises)
-//     })
-//   })
-// })
+  //   describe('/categories', () => {
+  //     it('INVALID METHOD requests respond with a status 405', () => {
+  //       const invalidMethods = ['patch', 'put', 'delete', 'post']
+  //       const methodPromises = invalidMethods.map((method) => {
+  //         return request(app)
+  //           [method]('/api/categories')
+  //           .expect(405)
+  //           .then(({ body }) => {
+  //             expect(body.msg).to.equal('Method not allowed')
+  //           })
+  //       })
+  //       return Promise.all(methodPromises)
+  //     })
+  //   })
+})
