@@ -162,24 +162,22 @@ describe('/api', () => {
         })
     })
   })
-  //it('DELETE responds with a status 204 when deleting an existing question', () => {
-
-  //});
-
-  /*
-  it('DELETE responds with a status 204 when deleting an existing category', () => {
-    return request(app).delete('/api/categories?category=diet').expect(204)
+  it('DELETE responds with a status 204 when deleting an existing question', () => {
+    return request(app).delete('/api/questions?question_id=1').expect(204)
   })
-  it("DELETE responds with a status 404 when deleting a category that doesn't exist", () => {
+
+  it("DELETE responds with a status 404 when deleting a question that doesn't exist", () => {
     return request(app)
-      .delete('/api/categories?category=hobbies')
+      .delete('/api/questions?question_id=99999')
       .expect(404)
-      .then(({ body }) => {})
+      .then(({ body }) => {
+        expect(body.msg).to.equal(
+          'question with question_id: 99999 does not exist'
+        )
+      })
   })
-*/
-
   it('INVALID METHOD requests respond with a status 405', () => {
-    const invalidMethods = ['patch', 'put', 'delete']
+    const invalidMethods = ['patch', 'put']
     const methodPromises = invalidMethods.map((method) => {
       return request(app)
         [method]('/api/questions')
@@ -276,12 +274,11 @@ describe('/api', () => {
     it('DELETE responds with a status 204 when deleting an existing category', () => {
       return request(app).delete('/api/categories?category=diet').expect(204)
     })
-    it.only("DELETE responds with a status 404 when deleting a category that doesn't exist", () => {
+    it("DELETE responds with a status 404 when deleting a category that doesn't exist", () => {
       return request(app)
         .delete('/api/categories?category=hobbies')
         .expect(404)
         .then(({ body }) => {
-          console.log(body)
           expect(body.msg).to.equal(
             'category with category_name: hobbies not found'
           )

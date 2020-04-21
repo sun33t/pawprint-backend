@@ -21,3 +21,17 @@ exports.addQuestion = (newQuestion) => {
       return { question }
     })
 }
+
+exports.removeQuestion = (question_id) => {
+  return connection('questions')
+    .where('question_id', question_id)
+    .del()
+    .then((response) => {
+      return response === 0
+        ? Promise.reject({
+            status: 404,
+            msg: `question with question_id: ${question_id} does not exist`,
+          })
+        : true
+    })
+}
