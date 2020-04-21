@@ -1,7 +1,7 @@
 exports.up = function (knex) {
   return knex.schema.createTable('questions', (questionsTable) => {
     questionsTable.increments('question_id').primary().notNullable()
-    questionsTable.string('category').notNullable()
+    questionsTable.string('category').references('categories.category_name')
     questionsTable.text('question_text').unique().notNullable()
     questionsTable.string('option_1').notNullable()
     questionsTable.string('option_2').notNullable()
