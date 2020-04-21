@@ -18,3 +18,17 @@ exports.addCategory = (newCategory) => {
       return { category }
     })
 }
+
+exports.removeCategory = (category) => {
+  return connection('categories')
+    .where('category_name', category)
+    .del()
+    .then((response) => {
+      return response === 0
+        ? Promise.reject({
+            status: 404,
+            msg: `category with category_name: ${category} not found`,
+          })
+        : true
+    })
+}

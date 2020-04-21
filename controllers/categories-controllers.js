@@ -1,4 +1,8 @@
-const { fetchCategories, addCategory } = require('../models/categories-models')
+const {
+  fetchCategories,
+  addCategory,
+  removeCategory,
+} = require('../models/categories-models')
 
 exports.sendCategories = (req, res, next) => {
   fetchCategories().then((categories) => {
@@ -11,6 +15,15 @@ exports.postCategory = (req, res, next) => {
   addCategory(categoryToAdd)
     .then((category) => {
       res.status(201).send(category)
+    })
+    .catch(next)
+}
+
+exports.deleteCategory = (req, res, next) => {
+  const { category } = req.query
+  removeCategory(category)
+    .then(() => {
+      res.sendStatus(204)
     })
     .catch(next)
 }

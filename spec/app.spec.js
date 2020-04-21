@@ -178,9 +178,9 @@ describe('/api', () => {
 
   /* TESTS FOR /API/CATEGORIES ENDPOINT */
 
-  describe.only('/categories', () => {
+  describe('/categories', () => {
     it('INVALID METHOD requests respond with a status 405', () => {
-      const invalidMethods = ['patch', 'put', 'delete']
+      const invalidMethods = ['patch', 'put']
       const methodPromises = invalidMethods.map((method) => {
         return request(app)
           [method]('/api/categories')
@@ -256,6 +256,15 @@ describe('/api', () => {
             'null value in column "category_name" violates not-null constraint'
           )
         })
+    })
+    it('DELETE responds with a status 204 when deleting an existing category', () => {
+      return request(app).delete('/api/categories?category=diet').expect(204)
+    })
+    it("DELETE responds with a status 404 when deleting a category that doesn't exist", () => {
+      return request(app)
+        .delete('/api/categories?category=hobbies')
+        .expect(404)
+        .then(({ body }) => {})
     })
   })
 })
