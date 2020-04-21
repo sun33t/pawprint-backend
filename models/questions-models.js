@@ -4,6 +4,7 @@ exports.fetchQuestions = (category) => {
   return connection('questions')
     .select('*')
     .from('questions')
+    .orderBy('questions.category')
     .modify((query) => {
       if (category) query.where('questions.category', category)
     })

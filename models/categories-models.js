@@ -7,6 +7,7 @@ exports.fetchCategories = () => {
     .from('categories')
     .leftJoin('questions', 'questions.category', 'categories.category_name')
     .groupBy('categories.category_name')
+    .orderBy('categories.category_name')
     .then((categories) => {
       return { categories }
     })
