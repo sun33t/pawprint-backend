@@ -150,7 +150,7 @@ describe('/api', () => {
         .expect(400)
         .then(({ body }) => {
           expect(body.msg).to.equal(
-            'null value in column "category" violates not-null constraint'
+            'null value in column "question_text" violates not-null constraint'
           )
         })
     })
@@ -171,18 +171,18 @@ describe('/api', () => {
 
   /* TESTS FOR /API/CATEGORIES ENDPOINT */
 
-  describe('/categories', () => {
-    it('INVALID METHOD requests respond with a status 405', () => {
-      const invalidMethods = ['patch', 'put', 'delete', 'post']
-      const methodPromises = invalidMethods.map((method) => {
-        return request(app)
-          [method]('/api/categories')
-          .expect(405)
-          .then(({ body }) => {
-            expect(body.msg).to.equal('Method not allowed')
-          })
-      })
-      return Promise.all(methodPromises)
-    })
-  })
-})
+//   describe('/categories', () => {
+//     it('INVALID METHOD requests respond with a status 405', () => {
+//       const invalidMethods = ['patch', 'put', 'delete', 'post']
+//       const methodPromises = invalidMethods.map((method) => {
+//         return request(app)
+//           [method]('/api/categories')
+//           .expect(405)
+//           .then(({ body }) => {
+//             expect(body.msg).to.equal('Method not allowed')
+//           })
+//       })
+//       return Promise.all(methodPromises)
+//     })
+//   })
+// })
