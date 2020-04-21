@@ -245,5 +245,17 @@ describe('/api', () => {
           )
         })
     })
+
+    it('POST responds with a status 400 when attempting to add an empty category', () => {
+      return request(app)
+        .post('/api/categories')
+        .send({})
+        .expect(400)
+        .then(({ body }) => {
+          expect(body.msg).to.equal(
+            'null value in column "category_name" violates not-null constraint'
+          )
+        })
+    })
   })
 })
