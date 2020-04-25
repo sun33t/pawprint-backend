@@ -7,7 +7,6 @@ exports.formatQuestions = (questions) => {
 }
 
 exports.formatAnswers = (questions, refObj) => {
-  // should output an array of objects [{ question_ id: *, position: *, answer_text: *, score: *}]
   const formattedAnswers = []
 
   questions.forEach((question) => {
