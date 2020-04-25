@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const { formatQuestions } = require('../utils/utils')
+const { formatQuestions, formatAnswers } = require('../utils/utils')
 const { questionData } = require('../db/data/test-data/index')
 
 describe('formatQuestions', () => {
@@ -43,4 +43,28 @@ describe('formatQuestions', () => {
     ]
     expect(actual).to.eql(expected)
   })
+  it('takes am array of multiple raw questions and returns an array of correctly formatted questions', () => {
+    const actual = formatQuestions(questionData)
+
+    actual.map((question, index) => {
+      expect(question).to.contain.keys(['category', 'question_text'])
+
+      if (index === 2) {
+        expect(question.category).to.equal('diet')
+        expect(question.question_text).to.equal(
+          'How much food ends up wasted in your household?'
+        )
+      }
+    })
+  })
 })
+
+// describe.only('formatAnswers', () => {
+//   it('returns an empty array when passed an empty array', () => {
+//     expect(formatAnswers([])).to.eql([])
+//   })
+//   it('returns a new array', () => {
+//     const input = []
+//     expect(formatAnswers(input)).to.not.equal(input)
+//   })
+// })
