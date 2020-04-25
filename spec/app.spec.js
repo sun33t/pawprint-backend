@@ -57,18 +57,16 @@ describe('/api', () => {
           ])
         })
     })
-    it.only('GET responds with an object containing a questions key holding a correctly formatted array of questions', () => {
+    it('GET responds with an object containing a questions key holding a correctly formatted array of questions', () => {
       return request(app)
         .get('/api/questions')
         .expect(200)
         .then(({ body }) => {
-          console.log(body)
           const {
             questions: { totalQuestions, questionsInCategory, questions },
           } = body
           expect(questions.length).to.equal(20)
           questions.map((question) => {
-            console.log(question)
             expect(question).to.contain.keys([
               'question_id',
               'category',
@@ -87,31 +85,32 @@ describe('/api', () => {
           })
         })
     })
-    it.skip('GET responds with an array of question objects', () => {
-      return request(app)
-        .get('/api/questions')
-        .expect(200)
-        .then(({ body }) => {
-          expect(body).to.be.an('object')
-          expect(body.questions[0]).to.contain.keys([
-            'question_id',
-            'category',
-            'question_text',
-            'option_1',
-            'option_2',
-            'option_3',
-            'option_4',
-          ])
-        })
-    })
-
-    it.skip('GET responds with an array of question objects filtered by the provided category', () => {
+    it.only('GET responds with an array of question objects filtered by the provided category', () => {
       return request(app)
         .get('/api/questions?category=diet')
         .expect(200)
         .then(({ body }) => {
-          body.questions.map((question) => {
+          const {
+            questions: { totalQuestions, questionsInCategory, questions },
+          } = body
+          expect(questions.length).to.equal(5)
+          questions.map((question) => {
+            expect(question).to.contain.keys([
+              'question_id',
+              'category',
+              'question_text',
+              'answers',
+            ])
             expect(question.category).to.equal('diet')
+            question.answers.map((answer) => {
+              expect(answer).to.contain.keys([
+                'answer_id',
+                'question_id',
+                'position',
+                'answer_text',
+                'score',
+              ])
+            })
           })
         })
     })
