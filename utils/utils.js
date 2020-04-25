@@ -6,8 +6,22 @@ exports.formatQuestions = (questions) => {
   })
 }
 
-exports.formatAnswers = (questions) => {
-  return []
+exports.formatAnswers = (questions, refObj) => {
+  // should output an array of objects [{ question_ id: *, position: *, answer_text: *, score: *}]
+  const formattedAnswers = []
+
+  questions.forEach((question) => {
+    const answerArray = ['option_1', 'option_2', 'option_3', 'option_4']
+    answerArray.forEach((answer, index) => {
+      formattedAnswers.push({
+        question_id: refObj[question.question_text],
+        position: index + 1,
+        answer_text: question[answerArray[index]].text,
+        score: question[answerArray[index]].score,
+      })
+    })
+  })
+  return formattedAnswers
 }
 
 exports.makeRefObj = (list, itemToBeKey, itemToBeValue) => {
