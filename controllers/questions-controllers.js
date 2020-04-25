@@ -6,9 +6,11 @@ const {
 
 exports.sendQuestions = (req, res, next) => {
   const { category } = req.query
-  fetchQuestions(category).then((questions) => {
-    res.status(200).send(questions)
-  })
+  fetchQuestions(category)
+    .then((questions) => {
+      res.status(200).send(questions)
+    })
+    .catch(next)
 }
 
 exports.postQuestion = (req, res, next) => {

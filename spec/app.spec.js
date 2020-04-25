@@ -44,17 +44,47 @@ describe('/api', () => {
   /* TESTS FOR /API/QUESTIONS ENDPOINT */
 
   describe('/api/questions', () => {
-    it.only('GET responds with an object containing correctly formatted questions data', () => {
+    it('GET responds with an object containing correctly formatted questions data', () => {
       return request(app)
         .get('/api/questions')
         .expect(200)
         .then(({ body }) => {
-          expect(body).to.be.an('object')
-          expect(body).to.contain.keys([
+          expect(body.question).to.be.an('object')
+          expect(body.question).to.contain.keys([
             'totalQuestions',
             'questionsInCategory',
             'questions',
           ])
+        })
+    })
+    it.only('GET responds with an object containing a questions key holding a correctly formatted array of questions', () => {
+      return request(app)
+        .get('/api/questions')
+        .expect(200)
+        .then(({ body }) => {
+          console.log(body)
+          const {
+            questions: { totalQuestions, questionsInCategory, questions },
+          } = body
+          expect(questions.length).to.equal(20)
+          questions.map((question) => {
+            console.log(question)
+            expect(question).to.contain.keys([
+              'question_id',
+              'category',
+              'question_text',
+              'answers',
+            ])
+            question.answers.map((answer) => {
+              expect(answer).to.contain.keys([
+                'answer_id',
+                'question_id',
+                'position',
+                'answer_text',
+                'score',
+              ])
+            })
+          })
         })
     })
     it.skip('GET responds with an array of question objects', () => {
