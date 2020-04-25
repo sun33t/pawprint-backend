@@ -8,8 +8,16 @@ exports.fetchQuestions = (category) => {
     .modify((query) => {
       if (category) query.where('questions.category', category)
     })
-    .then((questions) => {
-      return { questions }
+    .then((query) => {
+      const totalQuestions = this.fetchNumberoftotalQuestions()
+      return Promise.all([totalQuestions, query])
+    })
+    .then(([totalQuestions, query]) => {
+      return {
+        totalQuestions,
+        questionsInCategory: query.length,
+        questions: query,
+      }
     })
 }
 
@@ -34,5 +42,14 @@ exports.removeQuestion = (question_id) => {
             msg: `question with question_id: ${question_id} does not exist`,
           })
         : true
+    })
+}
+
+exports.fetchNumberoftotalQuestions = () => {
+  return connection('questions')
+    .select('*')
+    .from('questions')
+    .then((questions) => {
+      return questions.length
     })
 }

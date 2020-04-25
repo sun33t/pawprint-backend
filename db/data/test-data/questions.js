@@ -181,6 +181,26 @@ module.exports = [
     },
   },
   {
+    category: 'travel',
+    question_text: 'Travel Question 5?',
+    option_1: {
+      text: 'Option 1',
+      score: 0,
+    },
+    option_2: {
+      text: 'Option 2',
+      score: 0.1,
+    },
+    option_3: {
+      text: 'Option 3',
+      score: 0.3,
+    },
+    option_4: {
+      text: 'Option 4',
+      score: 0.6,
+    },
+  },
+  {
     category: 'home',
     question_text: 'Home Question 1?',
     option_1: {
@@ -261,6 +281,26 @@ module.exports = [
     },
   },
   {
+    category: 'home',
+    question_text: 'Home Question 5?',
+    option_1: {
+      text: 'Option 1',
+      score: 0,
+    },
+    option_2: {
+      text: 'Option 2',
+      score: 0,
+    },
+    option_3: {
+      text: 'Option 3',
+      score: 0,
+    },
+    option_4: {
+      text: 'Option 4',
+      score: 0,
+    },
+  },
+  {
     category: 'other',
     question_text: 'Other Question 1?',
     option_1: {
@@ -323,6 +363,26 @@ module.exports = [
   {
     category: 'other',
     question_text: 'Other Question 4?',
+    option_1: {
+      text: 'Option 1',
+      score: 0,
+    },
+    option_2: {
+      text: 'Option 2',
+      score: 0.1,
+    },
+    option_3: {
+      text: 'Option 3',
+      score: 0.3,
+    },
+    option_4: {
+      text: 'Option 4',
+      score: 0.6,
+    },
+  },
+  {
+    category: 'other',
+    question_text: 'Other Question 5?',
     option_1: {
       text: 'Option 1',
       score: 0,

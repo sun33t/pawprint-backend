@@ -44,7 +44,20 @@ describe('/api', () => {
   /* TESTS FOR /API/QUESTIONS ENDPOINT */
 
   describe('/api/questions', () => {
-    it('GET responds with an array of question objects', () => {
+    it.only('GET responds with an object containing correctly formatted questions data', () => {
+      return request(app)
+        .get('/api/questions')
+        .expect(200)
+        .then(({ body }) => {
+          expect(body).to.be.an('object')
+          expect(body).to.contain.keys([
+            'totalQuestions',
+            'questionsInCategory',
+            'questions',
+          ])
+        })
+    })
+    it.skip('GET responds with an array of question objects', () => {
       return request(app)
         .get('/api/questions')
         .expect(200)
@@ -62,7 +75,7 @@ describe('/api', () => {
         })
     })
 
-    it('GET responds with an array of question objects filtered by the provided category', () => {
+    it.skip('GET responds with an array of question objects filtered by the provided category', () => {
       return request(app)
         .get('/api/questions?category=diet')
         .expect(200)
@@ -161,32 +174,32 @@ describe('/api', () => {
           )
         })
     })
-  })
-  it('DELETE responds with a status 204 when deleting an existing question', () => {
-    return request(app).delete('/api/questions?question_id=1').expect(204)
-  })
+    it('DELETE responds with a status 204 when deleting an existing question', () => {
+      return request(app).delete('/api/questions?question_id=1').expect(204)
+    })
 
-  it("DELETE responds with a status 404 when deleting a question that doesn't exist", () => {
-    return request(app)
-      .delete('/api/questions?question_id=99999')
-      .expect(404)
-      .then(({ body }) => {
-        expect(body.msg).to.equal(
-          'question with question_id: 99999 does not exist'
-        )
-      })
-  })
-  it('INVALID METHOD requests respond with a status 405', () => {
-    const invalidMethods = ['patch', 'put']
-    const methodPromises = invalidMethods.map((method) => {
+    it("DELETE responds with a status 404 when deleting a question that doesn't exist", () => {
       return request(app)
-        [method]('/api/questions')
-        .expect(405)
+        .delete('/api/questions?question_id=99999')
+        .expect(404)
         .then(({ body }) => {
-          expect(body.msg).to.equal('Method not allowed')
+          expect(body.msg).to.equal(
+            'question with question_id: 99999 does not exist'
+          )
         })
     })
-    return Promise.all(methodPromises)
+    it('INVALID METHOD requests respond with a status 405', () => {
+      const invalidMethods = ['patch', 'put']
+      const methodPromises = invalidMethods.map((method) => {
+        return request(app)
+          [method]('/api/questions')
+          .expect(405)
+          .then(({ body }) => {
+            expect(body.msg).to.equal('Method not allowed')
+          })
+      })
+      return Promise.all(methodPromises)
+    })
   })
 
   /* TESTS FOR /API/CATEGORIES ENDPOINT */
@@ -205,7 +218,7 @@ describe('/api', () => {
       return Promise.all(methodPromises)
     })
 
-    it.only('GET responds with status 200 and an array of category objects', () => {
+    it('GET responds with status 200 and an array of category objects', () => {
       return request(app)
         .get('/api/categories')
         .expect(200)
