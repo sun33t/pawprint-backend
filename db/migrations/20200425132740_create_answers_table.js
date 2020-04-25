@@ -1,6 +1,6 @@
 exports.up = function (knex) {
   return knex.schema.createTable('answers', (answersTable) => {
-    answersTable.increments('answer_id').primary().notNullable()
+    answersTable.increments('answer_id').primary().unique().notNullable()
     answersTable
       .string('question_id')
       .references('questions.question_id')
