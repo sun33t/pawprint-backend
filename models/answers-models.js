@@ -9,3 +9,12 @@ exports.fetchAnswers = (question_id) => {
       return answers
     })
 }
+
+exports.addAnswers = (answers) => {
+  return connection('answers')
+    .insert(answers)
+    .returning('*')
+    .then((addedAnswers) => {
+      return addedAnswers
+    })
+}

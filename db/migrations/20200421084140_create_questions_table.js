@@ -5,6 +5,7 @@ exports.up = function (knex) {
       .string('category')
       .references('categories.category_name')
       .onDelete('CASCADE')
+      .notNullable()
     questionsTable.text('question_text').unique().notNullable()
   })
 }

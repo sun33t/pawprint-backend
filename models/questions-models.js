@@ -1,5 +1,6 @@
 const connection = require('../db/connection')
-const { fetchAnswers } = require('./answers-models')
+const { fetchAnswers, addAnswers } = require('./answers-models')
+const { formatAnswers } = require('../utils/utils')
 
 exports.fetchQuestions = (category) => {
   return connection('questions')
@@ -50,11 +51,28 @@ exports.fetchQuestions = (category) => {
 }
 
 exports.addQuestion = (newQuestion) => {
+  const {
+    option_1,
+    option_2,
+    option_3,
+    option_4,
+    ...questionToAdd
+  } = newQuestion
+
   return connection('questions')
-    .insert(newQuestion)
+    .insert(questionToAdd)
     .returning('*')
     .then((response) => {
-      const [question] = response
+      const [addedQuestion] = response
+      const formattedAnswers = formatAnswers([newQuestion], {
+        [addedQuestion.question_text]: addedQuestion.question_id,
+      })
+      const insertedAnswers = addAnswers(formattedAnswers)
+      return Promise.all([insertedAnswers, addedQuestion])
+    })
+    .then(([insertedAnswers, addedQuestion]) => {
+      const question = { ...addedQuestion, answers: insertedAnswers }
+
       return { question }
     })
 }

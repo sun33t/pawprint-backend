@@ -49,8 +49,8 @@ describe('/api', () => {
         .get('/api/questions')
         .expect(200)
         .then(({ body }) => {
-          expect(body.question).to.be.an('object')
-          expect(body.question).to.contain.keys([
+          expect(body.questions).to.be.an('object')
+          expect(body.questions).to.contain.keys([
             'totalQuestions',
             'questionsInCategory',
             'questions',
@@ -85,7 +85,7 @@ describe('/api', () => {
           })
         })
     })
-    it.only('GET responds with an array of question objects filtered by the provided category', () => {
+    it('GET responds with an array of question objects filtered by the provided category', () => {
       return request(app)
         .get('/api/questions?category=diet')
         .expect(200)
@@ -118,35 +118,63 @@ describe('/api', () => {
       return request(app)
         .post('/api/questions')
         .send({
-          category: 'diet',
-          question_text: 'Is this a test diet question?',
-          option_1: 'Daily',
-          option_2: '1 or 2 times',
-          option_3: '3+ times per week',
-          option_4: 'Not at all',
+          category: 'other',
+          question_text: 'Other Question 6?',
+          option_1: {
+            text: 'Option 1',
+            score: 0,
+          },
+          option_2: {
+            text: 'Option 2',
+            score: 0.1,
+          },
+          option_3: {
+            text: 'Option 3',
+            score: 0.3,
+          },
+          option_4: {
+            text: 'Option 4',
+            score: 0.6,
+          },
         })
         .expect(201)
         .then(({ body }) => {
-          expect(body.question.category).to.equal('diet')
-          expect(body.question.question_text).to.equal(
-            'Is this a test diet question?'
-          )
-          expect(body.question.option_1).to.equal('Daily')
-          expect(body.question.option_2).to.equal('1 or 2 times')
-          expect(body.question.option_3).to.equal('3+ times per week')
-          expect(body.question.option_4).to.equal('Not at all')
+          expect(body.question.category).to.equal('other')
+          expect(body.question.question_text).to.equal('Other Question 6?')
+          body.question.answers.map((answer) => {
+            expect(answer).to.contain.keys([
+              'answer_id',
+              'question_id',
+              'position',
+              'answer_text',
+              'score',
+            ])
+            expect(answer.question_id).to.equal(body.question.question_id)
+          })
         })
     })
     it("POST responds with a status 400 when attempting to add a category that doesn't exist", () => {
       return request(app)
         .post('/api/questions')
         .send({
-          category: 'health',
-          question_text: 'How often do you exercise?',
-          option_1: 'Daily',
-          option_2: '1 or 2 times',
-          option_3: '3+ times per week',
-          option_4: 'Not at all',
+          category: 'hobbies',
+          question_text: 'Hobbies Question 6?',
+          option_1: {
+            text: 'Option 1',
+            score: 0,
+          },
+          option_2: {
+            text: 'Option 2',
+            score: 0.1,
+          },
+          option_3: {
+            text: 'Option 3',
+            score: 0.3,
+          },
+          option_4: {
+            text: 'Option 4',
+            score: 0.6,
+          },
         })
         .expect(400)
         .then(({ body }) => {
@@ -159,12 +187,24 @@ describe('/api', () => {
       return request(app)
         .post('/api/questions')
         .send({
-          categor: 'health',
-          question_text: 'How often do you exercise?',
-          option_1: 'Daily',
-          option_2: '1 or 2 times',
-          option_3: '3+ times per week',
-          option_4: 'Not at all',
+          categor: 'other',
+          question_text: 'Other Question 7?',
+          option_1: {
+            text: 'Option 1',
+            score: 0,
+          },
+          option_2: {
+            text: 'Option 2',
+            score: 0.1,
+          },
+          option_3: {
+            text: 'Option 3',
+            score: 0.3,
+          },
+          option_4: {
+            text: 'Option 4',
+            score: 0.6,
+          },
         })
         .expect(400)
         .then(({ body }) => {
@@ -179,11 +219,23 @@ describe('/api', () => {
         .post('/api/questions')
         .send({
           category: 'diet',
-          question_text: 'How often do you eat meat and dairy?',
-          option_1: 'Daily',
-          option_2: '1 or 2 times',
-          option_3: '3+ times per week',
-          option_4: 'Not at all',
+          question_text: 'How big are your portion sizes?',
+          option_1: {
+            text: 'Smaller than average',
+            score: 0.1,
+          },
+          option_2: {
+            text: 'Average',
+            score: 0.3,
+          },
+          option_3: {
+            text: 'Larger than average',
+            score: 0.6,
+          },
+          option_4: {
+            text: "I'm not sure",
+            score: 0,
+          },
         })
         .expect(400)
         .then(({ body }) => {
@@ -199,7 +251,7 @@ describe('/api', () => {
         .expect(400)
         .then(({ body }) => {
           expect(body.msg).to.equal(
-            'null value in column "question_text" violates not-null constraint'
+            'null value in column "category" violates not-null constraint'
           )
         })
     })
@@ -264,7 +316,11 @@ describe('/api', () => {
     it('POST responds with status 201 and the newly posted category', () => {
       return request(app)
         .post('/api/categories')
-        .send({ category_name: 'hobbies', category_title: 'Hobbies' })
+        .send({
+          category_name: 'hobbies',
+          category_title: 'Hobbies',
+          position: 5,
+        })
         .expect(201)
         .then(({ body }) => {
           expect(body.category.category_name).to.equal('hobbies')
@@ -293,6 +349,7 @@ describe('/api', () => {
         .send({
           category_name: 'diet',
           category_title: 'Diet',
+          position: 1,
         })
         .expect(400)
         .then(({ body }) => {
