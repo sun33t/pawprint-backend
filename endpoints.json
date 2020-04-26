@@ -10,20 +10,74 @@
     "exampleResponse": {
       "questions": [
         {
+          "question_id": 1,
           "category": "diet",
           "question_text": "How often do you eat meat and dairy?",
-          "option_1": "Daily",
-          "option_2": "1 or 2 times",
-          "option_3": "3+ times per week",
-          "option_4": "Not at all"
+          "answers": [
+            {
+              "answer_id": 1,
+              "question_id": 1,
+              "position": 1,
+              "answer_text": "Daily",
+              "score": 0.6
+            },
+            {
+              "answer_id": 2,
+              "question_id": 1,
+              "position": 2,
+              "answer_text": "1 or 2 times",
+              "score": 0.3
+            },
+            {
+              "answer_id": 3,
+              "question_id": 1,
+              "position": 3,
+              "answer_text": "3+ times per week",
+              "score": 0.1
+            },
+            {
+              "answer_id": 4,
+              "question_id": 1,
+              "position": 4,
+              "answer_text": "Not at all",
+              "score": 0
+            }
+          ]
         },
         {
+          "question_id": 2,
           "category": "diet",
           "question_text": "How big are your portion sizes?",
-          "option_1": "Smaller than average",
-          "option_2": "Average",
-          "option_3": "Larger than average",
-          "option_4": "I'm not sure"
+          "answers": [
+            {
+              "answer_id": 5,
+              "question_id": 2,
+              "position": 1,
+              "answer_text": "Smaller than average",
+              "score": 0.1
+            },
+            {
+              "answer_id": 6,
+              "question_id": 2,
+              "position": 2,
+              "answer_text": "Average",
+              "score": 0.3
+            },
+            {
+              "answer_id": 7,
+              "question_id": 2,
+              "position": 3,
+              "answer_text": "Larger than average",
+              "score": 0.6
+            },
+            {
+              "answer_id": 8,
+              "question_id": 2,
+              "position": 4,
+              "answer_text": "I'm not sure",
+              "score": 0
+            }
+          ]
         }
       ]
     }
@@ -32,20 +86,59 @@
     "description": "Responds with the posted question",
     "body": {
       "category": "diet",
-      "question_text": "How often do you eat meat and dairy?",
-      "option_1": "Daily",
-      "option_2": "1 or 2 times",
-      "option_3": "3+ times per week",
-      "option_4": "Not at all"
+      "question_text": "How often do you drink milkshakes?",
+      "option_1": {
+        "text": "Daily",
+        "score": 0.6
+      },
+      "option_2": {
+        "text": "1 or 2 times",
+        "score": 0.3
+      },
+      "option_3": {
+        "text": "3+ times per week",
+        "score": 0.1
+      },
+      "option_4": {
+        "text": "Not at all",
+        "score": 0
+      }
     },
     "exampleResponse": {
       "question": {
+        "question_id": 21,
         "category": "diet",
-        "question_text": "How often do you eat meat and dairy?",
-        "option_1": "Daily",
-        "option_2": "1 or 2 times",
-        "option_3": "3+ times per week",
-        "option_4": "Not at all"
+        "question_text": "How often do you drink milkshakes?",
+        "answers": [
+          {
+            "answer_id": 81,
+            "question_id": 21,
+            "position": 1,
+            "answer_text": "Daily",
+            "score": 0.6
+          },
+          {
+            "answer_id": 82,
+            "question_id": 21,
+            "position": 2,
+            "answer_text": "1 or 2 times",
+            "score": 0.3
+          },
+          {
+            "answer_id": 83,
+            "question_id": 21,
+            "position": 3,
+            "answer_text": "3+ times per week",
+            "score": 0.1
+          },
+          {
+            "answer_id": 84,
+            "question_id": 21,
+            "position": 4,
+            "answer_text": "Not at all",
+            "score": 0
+          }
+        ]
       }
     }
   },
@@ -59,18 +152,48 @@
     "description": "serves an array of all the categories in the database",
     "queries": {
       "category": "string (e.g. 'diet')"
+    },
+    "exampleResponse": {
+      "categories": [
+        {
+          "category_name": "diet",
+          "category_title": "Diet",
+          "position": 1,
+          "question_count": "6"
+        },
+        {
+          "category_name": "home",
+          "category_title": "Home",
+          "position": 2,
+          "question_count": "5"
+        },
+        {
+          "category_name": "other",
+          "category_title": "Other",
+          "position": 4,
+          "question_count": "5"
+        },
+        {
+          "category_name": "travel",
+          "category_title": "Travel",
+          "position": 3,
+          "question_count": "5"
+        }
+      ]
     }
   },
   "POST /api/categories": {
     "description": "Responds with the posted category",
     "body": {
       "category_name": "hobbies",
-      "category_title": "Hobbies"
+      "category_title": "Hobbies",
+      "position": 5
     },
     "exampleResponse": {
       "category": {
         "category_name": "hobbies",
-        "category_title": "Hobbies"
+        "category_title": "Hobbies",
+        "position": 5
       }
     }
   },

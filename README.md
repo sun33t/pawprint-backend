@@ -119,7 +119,8 @@ Once you have the server up and running, the following endpoints will be availab
 
 - POST `/api/questions`:
 
-  - accepts an object in the form of `{category, question_text, option_1, option_2, option_3, option_4}`
+  - accepts an object in the form of `{category, question_text, option_1, option_2, option_3, option_4}` where each `option` value is an object of the form `{text, score}`
+
   - responds with the newly added question
 
 - DELETE `api/questions`:
@@ -132,7 +133,7 @@ Once you have the server up and running, the following endpoints will be availab
 
 -POST `api/categories`
 
-- accepts an object in the form of `{category_name, category_title}`
+- accepts an object in the form of `{category_name, category_title, position}`
 - responds with the newly added category
 
 - DELETE `api/categories`
